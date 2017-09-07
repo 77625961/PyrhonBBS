@@ -1,0 +1,251 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- 百度验证 -->
+    <meta name="baidu-site-verification" content="Y2JKmTtCPI"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{%static favicon.ico %}">
+   
+    
+    <title>
+    
+        Pythonzhcn - Python
+        中文社区
+    
+</title>
+    <style>
+        img {
+            max-width: 100%;
+        }
+
+        .bg-white {
+            background-color: #fff;
+        }
+
+        .mugshot-24 {
+            width: 24px;
+            height: 24px;
+        }
+
+        .mugshot-48 {
+            width: 48px;
+            height: 48px;
+        }
+
+        .mugshot-96 {
+            width: 96px;
+            height: 96px;
+        }
+
+        .post-title {
+            color: #555;
+            line-height: 1.3em;
+        }
+
+        .list-dot-divider li:not(:last-child):after {
+            content: ' ·';
+            font-size: 1em;
+        }
+
+        #id_honeypot {
+            display: none;
+        }
+
+        .hot {
+            color: red;
+        }
+
+        .pinned {
+            color: #ff7700;
+        }
+
+        .highlight {
+            color: #b71ed7;
+        }
+
+        .cover-72 {
+            width: 72px;
+            height: 72px;
+        }
+
+        .cover-36 {
+            width: 36px;
+            height: 36px;
+        }
+
+        .errorlist {
+            color: red;
+        }
+
+        .py {
+            color: #fe2121;
+        }
+
+        .zhch {
+            color: #f2bf45;
+        }
+
+        .logo a:hover,
+        .logo a:active,
+        .logo a:focus,
+        .logo a:link,
+        .logo a:visited {
+            text-decoration: none;
+        }
+
+        .preview-area {
+            border: 1px solid #ccc;
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-faded">
+<header>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-white">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <h1 class="navbar-brand logo">
+            <a class="font-weight-bold h4" href="/">
+                <span class="py">Python</span><span class="zhch">zhcn</span></a>
+        </h1>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                
+                    <li class="nav-item mr-2">
+                        <a class="nav-link "
+                           href="/notifications/">
+                            <i class="fa fa-bell" aria-hidden="true"></i>
+                            
+                        </a>
+                    </li>
+                    <li class="nav-item mr-2">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/new/">发布新帖子</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink1"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="mugshot-24 rounded-circle" src="picture/59365075032e4f4185ef3ad47798bc9a.gif" alt="">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink1">
+                            <a class="dropdown-item" href="/user/659/">77625961</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/user/settings/">设置</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/user/logout/?next=/">登出</a>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </nav>
+</header>
+
+{% block content %}
+{% endblock %}
+
+
+<script>
+    $(document).ready(function () {
+        // 给表单非隐藏的 input 标签添加 Bootstrap 需要的 form-control 样式
+        $("form .form-group :input[type!=hidden]").addClass('form-control');
+        $("form .form-group :input[type=button]").removeClass('form-control');
+        $("form .form-group :input[type=checkbox]").removeClass('form-control');
+
+        // 预览
+        $('#js-preview').on('click', function (e) {
+            var $this = $(this);
+            var $textarea = $this.parents('form').find('textarea');
+            $.post('/ajax/preview/', {
+                    'content': $textarea.val()
+                }, function (data) {
+                    $textarea.hide();
+                    $('#js-preview-area').text('').append(data.preview).css(
+                        {'min-height': $textarea.height()}
+                    ).addClass('rounded bg-faded p-2').show()
+                }
+            );
+            return false
+        });
+
+        // 编辑
+        $('#js-edit').on('click', function (e) {
+            var $this = $(this);
+            $('#js-preview-area').hide();
+            $this.parents('form').find('textarea').show().focus();
+            return false
+        })
+    });
+
+
+    //百度链接自动推送脚本代码
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+
+    // 百度统计脚本代码
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?537d8be6a7994e059f726517533c7045";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<footer class="bg-white mt-3 py-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="text-muted mb-3"><span class="py font-weight-bold">Python</span><span
+                        class="zhch font-weight-bold">zhcn</span> - Python 中文社区，我们将致力于打造国内最好的 Python 开发者社区！
+                </div>
+                <small class="text-muted">Powered by <a class="small" href="https://www.djangoproject.com/"
+                                                        target="_blank">Django</a>
+                </small>
+                <div class="w-100"></div>
+                <small class="text-muted">Designed by <a class="small" href="http://zmrenwu.com/"
+                                                         target="_blank">追梦人物</a></small>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-unstyled list-inline d-flex justify-content-between">
+                    <li class="list-inline-item font-weight-bold mr-3"><a href="/about/">关于</a></li>
+                    <li class="list-inline-item font-weight-bold mr-3"><a href="http://pythonzh.cn/post/16/">使用指南</a>
+                    </li>
+                    <li class="list-inline-item font-weight-bold"><a href="/contact/">联系我们</a></li>
+                    <li class="list-inline-item font-weight-bold"><a href="/donate/">捐赠</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="text-center small text-muted mt-3">
+            <span>Copyright © 2017 <a href="http://www.pythonzh.cn">Pythonzhcn</a></span>
+            <div class="w-100 mt-1"></div>
+            <span>蜀ICP备16036143号-2</span>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
