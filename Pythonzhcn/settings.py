@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Index',
     'Index.templatetags.dealwithtime',# 显示时间差的过滤器
+
 ]
 
 MIDDLEWARE = [
