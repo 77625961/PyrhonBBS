@@ -33,18 +33,25 @@ class PostedProbady(models.Model):
         user_d = 'index_userdetail'
         classify = 'index_topclassifyenum'
         posted_l = 'index_postedprobady'
+        
         if len(args) > 0:
             
-            classify_id = str(args)
+            if len(args) == 1:
+                classify_id = '('+str(args[0])+')'
+            else:
+                classify_id = str(args)
+           
+           
             sql = "SELECT t1.*, (SELECT username FROM {} as t2 WHERE t2.id = t1.uid ) as username, (SELECT picture FROM {} as t3 WHERE t3.uid = t1.uid) as picture, (SELECT enumName FROM {} as t4 WHERE t4.id = t1.classify) as enum FROM {} as t1 WHERE t1.classify in {} ORDER BY t1.ctime DESC LIMIT 0,10"
             sql = sql.format(user,user_d,classify,posted_l,classify_id) 
         else:
-            print(55555)
+           
             sql = "SELECT t1.*, (SELECT username FROM {} as t2 WHERE t2.id = t1.uid ) as username, (SELECT picture FROM {} as t3 WHERE t3.uid = t1.uid) as picture, (SELECT enumName FROM {} as t4 WHERE t4.id = t1.classify) as enum FROM {} as t1 ORDER BY t1.ctime DESC LIMIT 0,10"
             sql = sql.format(user,user_d,classify,posted_l)
             
         cursor.execute(sql)
         raw = cursor.fetchall()
+        
         return raw
         pass
     

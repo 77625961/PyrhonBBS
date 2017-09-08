@@ -12,6 +12,7 @@ def index(request, pid = None):
     if pid: 
         enum2 = models.TopClassifyEnum.objects.filter(pid = pid)
         list_id = [id.id for id in enum2]
+
         # 获取相关帖子信息
         # list_data = models.PostedProbady.objects.filter(classify__in = list_id).order_by('-ctime')
         list_data = models.PostedProbady.select_full_data(*list_id)
