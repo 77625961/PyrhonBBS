@@ -10,7 +10,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico'%}">
     <link rel="stylesheet" href="{%static 'Index/css/bootstrap.min_1.css '%}">
     <link href="{%static 'Index/css/font-awesome.min_1.css '%}" rel="stylesheet">
-    
+    {% block css %}
+    {% endblock %}
     <title>
     
         Pythonzhcn - Python
@@ -18,6 +19,8 @@
     
 </title>
     <style>
+
+
         img {
             max-width: 100%;
         }
@@ -225,6 +228,9 @@
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
+
+{% block javascript %}
+{% endblock %}
 
 
 <footer class="bg-white mt-3 py-2">

@@ -12,13 +12,15 @@ def index(request, pid = None):
     if pid: 
         enum2 = models.TopClassifyEnum.objects.filter(pid = pid)
         list_id = [id.id for id in enum2]
-
         # 資函�犢慳�徨佚連
-        # list_data = models.PostedProbady.objects.filter(classify__in = list_id).order_by('-ctime')
-        list_data = models.PostedProbady.select_full_data(*list_id)
+        if list_id:
+            list_data = models.PostedProbady.select_full_data(*list_id)
+        else:
+            list_data = []
     else:
-        # list_data = models.PostedProbady.objects.filter().order_by('-ctime')
         list_data = models.PostedProbady.select_full_data()
+    # 蛍匈喘js峨周恂
+  
         
     return render(request, 'Index/index.html', {'enum1':enum1, 'enum2':enum2, 'list_data':list_data})
 #'''！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！'''
